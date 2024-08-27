@@ -2,4 +2,4 @@
 
 cd data
 
-docker compose down -v --rmi
+docker compose down -v --rmi all
