@@ -1,3 +1,5 @@
 @ECHO OFF
 
-docker compose -f config/docker-compose.yml up -d
+cd data
+
+docker compose up -d --build
