@@ -30,6 +30,7 @@ services:
   repository-db:
     container_name: repository-db
     image: postgres:14.3-alpine3.16
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
