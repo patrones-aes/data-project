@@ -21,7 +21,7 @@ CREATE TABLE "meta"."databases" (
     "version" CHARACTER VARYING NOT NULL,
     "port" CHARACTER VARYING NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_database PRIMARY KEY ("code")
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE "meta"."tables" (
     "code" SERIAL,
     "name" CHARACTER VARYING UNIQUE NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_table PRIMARY KEY ("code")
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE "meta"."database_tables" (
     "database_code" INT NOT NULL,
     "table_code" INT NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     UNIQUE("database_code","table_code"),
     CONSTRAINT pk_database_table PRIMARY KEY ("code"),
     CONSTRAINT fk_database FOREIGN KEY ("database_code") REFERENCES "meta"."databases"("code"),
@@ -59,7 +59,7 @@ CREATE TABLE "meta"."columns" (
     "code" SERIAL,
     "name" CHARACTER VARYING UNIQUE NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_column PRIMARY KEY ("code")
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE "meta"."table_columns" (
     "database_table_code" INT NOT NULL,
     "column_code" INT NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     UNIQUE("database_table_code","column_code"),
     CONSTRAINT pk_table_column PRIMARY KEY ("code"),
     CONSTRAINT fk_database_table FOREIGN KEY ("database_table_code") REFERENCES "meta"."database_tables"("code"),
@@ -89,7 +89,7 @@ CREATE TABLE "meta"."entities" (
     "name" CHARACTER VARYING UNIQUE NOT NULL,
     "description" CHARACTER VARYING NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_entity PRIMARY KEY ("code")
 );
 
@@ -101,7 +101,7 @@ CREATE TABLE "meta"."entity_tables" (
     "entity_code" INT NOT NULL,
     "database_table_code" INT NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     UNIQUE("database_table_code","entity_code"),
     CONSTRAINT pk_entity_table PRIMARY KEY ("code"),
     CONSTRAINT fk_entity FOREIGN KEY ("entity_code") REFERENCES "meta"."entities"("code"),
@@ -116,7 +116,7 @@ CREATE TABLE "meta"."entity_attributes" (
     "name" CHARACTER VARYING UNIQUE NOT NULL,
     "description" CHARACTER VARYING NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_entity_attributes PRIMARY KEY ("code")
 );
 
@@ -128,7 +128,7 @@ CREATE TABLE "meta"."entity_entity_attributes" (
     "entity_code" INT NOT NULL,
     "entity_attribute_code" INT NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     UNIQUE("entity_code","entity_attribute_code"),
     CONSTRAINT pk_entity_entity_attribute PRIMARY KEY ("code"),
     CONSTRAINT fk_entity FOREIGN KEY ("entity_code") REFERENCES "meta"."entities"("code"),
@@ -143,7 +143,7 @@ CREATE TABLE "meta"."entity_attributes_columns" (
     "entity_entity_attribute_code" INT NOT NULL,
     "table_column_code" INT NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
-    "updated_at" TIMESTAMP DEFAULT NOW()
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     UNIQUE("table_column_code","entity_entity_attribute_code"),
     CONSTRAINT pk_entity_attribute_column PRIMARY KEY ("code"),
     CONSTRAINT fk_entity_entity_attribute FOREIGN KEY ("entity_entity_attribute_code") REFERENCES "meta"."entity_entity_attributes"("code"),
