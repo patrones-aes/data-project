@@ -7,11 +7,11 @@ services:
     image: postgres:16.4-alpine3.20
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: metadata
+      POSTGRES_DB: ${METADATA_DB_DATABASRE}
+      POSTGRES_USER: ${METADATA_DB_USER}
+      POSTGRES_PASSWORD: ${METADATA_DB_PASSWORD}
     ports:
-      - '5433:5432'
+      - ${METADATA_DB_PORT}:5432
     volumes:
       - metadata-db-data:/var/lib/postgresql/data
   metadata-db-schema:
@@ -20,8 +20,8 @@ services:
     build:
       context: db-schema
     environment:
-      LIQUIBASE_COMMAND_URL: jdbc:postgresql://metadata-db:5432/metadata
-      LIQUIBASE_COMMAND_USERNAME: postgres
-      LIQUIBASE_COMMAND_PASSWORD: 123456
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://${METADATA_DB_HOST}:5432/${METADATA_DB_DATABASRE}
+      LIQUIBASE_COMMAND_USERNAME: ${METADATA_DB_USER}
+      LIQUIBASE_COMMAND_PASSWORD: ${METADATA_DB_PASSWORD}
     depends_on:
       - metadata-db
