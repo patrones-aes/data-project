@@ -39,6 +39,7 @@ CREATE TABLE "meta"."database_tables" (
     "code" SERIAL,
     "database_code" INT NOT NULL,
     "table_code" INT NOT NULL,
+    UNIQUE("database_code","table_code"),
     CONSTRAINT pk_database_table PRIMARY KEY ("code"),
     CONSTRAINT fk_database FOREIGN KEY ("database_code") REFERENCES "meta"."databases"("code"),
     CONSTRAINT fk_table FOREIGN KEY ("table_code") REFERENCES "meta"."tables"("code")
@@ -64,6 +65,7 @@ CREATE TABLE "meta"."table_columns" (
     "length" INT,
     "database_table_code" INT NOT NULL,
     "column_code" INT NOT NULL,
+    UNIQUE("database_table_code","column_code"),
     CONSTRAINT pk_table_column PRIMARY KEY ("code"),
     CONSTRAINT fk_database_table FOREIGN KEY ("database_table_code") REFERENCES "meta"."database_tables"("code"),
     CONSTRAINT fk_column FOREIGN KEY ("column_code") REFERENCES "meta"."columns"("code")
@@ -86,6 +88,7 @@ CREATE TABLE "meta"."entity_tables" (
     "code" SERIAL,
     "entity_code" INT NOT NULL,
     "database_table_code" INT NOT NULL,
+    UNIQUE("database_table_code","entity_code"),
     CONSTRAINT pk_entity_table PRIMARY KEY ("code"),
     CONSTRAINT fk_entity FOREIGN KEY ("entity_code") REFERENCES "meta"."entities"("code"),
     CONSTRAINT fk_database_table FOREIGN KEY ("database_table_code") REFERENCES "meta"."database_tables"("code")
@@ -108,6 +111,7 @@ CREATE TABLE "meta"."entity_entity_attributes" (
     "code" SERIAL,
     "entity_code" INT NOT NULL,
     "entity_attribute_code" INT NOT NULL,
+    UNIQUE("entity_code","entity_attribute_code"),
     CONSTRAINT pk_entity_entity_attribute PRIMARY KEY ("code"),
     CONSTRAINT fk_entity FOREIGN KEY ("entity_code") REFERENCES "meta"."entities"("code"),
     CONSTRAINT fk_entity_attribute FOREIGN KEY ("entity_attribute_code") REFERENCES "meta"."entity_attributes"("code")
@@ -120,6 +124,7 @@ CREATE TABLE "meta"."entity_attributes_columns" (
     "code" SERIAL,
     "entity_entity_attribute_code" INT NOT NULL,
     "table_column_code" INT NOT NULL,
+    UNIQUE("table_column_code","entity_entity_attribute_code"),
     CONSTRAINT pk_entity_attribute_column PRIMARY KEY ("code"),
     CONSTRAINT fk_entity_entity_attribute FOREIGN KEY ("entity_entity_attribute_code") REFERENCES "meta"."entity_entity_attributes"("code"),
     CONSTRAINT fk_table_column FOREIGN KEY ("table_column_code") REFERENCES "meta"."table_columns"("code")

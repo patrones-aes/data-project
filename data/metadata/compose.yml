@@ -1,0 +1,27 @@
+volumes:
+  metadata-db-data:
+
+services:
+  metadata-db:
+    container_name: metadata-db
+    image: postgres:16.4-alpine3.20
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: metadata
+    ports:
+      - '5433:5432'
+    volumes:
+      - metadata-db-data:/var/lib/postgresql/data
+  metadata-db-schema:
+    container_name: metadata-db-schema
+    image: archi/metadata-db-schema
+    build:
+      context: db-schema
+    environment:
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://metadata-db:5432/metadata
+      LIQUIBASE_COMMAND_USERNAME: postgres
+      LIQUIBASE_COMMAND_PASSWORD: 123456
+    depends_on:
+      - metadata-db

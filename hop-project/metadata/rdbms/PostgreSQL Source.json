@@ -1,0 +1,26 @@
+{
+  "rdbms": {
+    "POSTGRESQL": {
+      "databaseName": "postgres",
+      "pluginId": "POSTGRESQL",
+      "accessType": 0,
+      "hostname": "localhost",
+      "password": "Encrypted 456e63727970746564203262653938616663383661613766326536ddfa98f10cc1c0d6f31dad26d893f7d9",
+      "pluginName": "PostgreSQL",
+      "port": "5432",
+      "attributes": {
+        "USE_POOLING": "N",
+        "IS_CLUSTERED": "N",
+        "SUPPORTS_TIMESTAMP_DATA_TYPE": "Y",
+        "QUOTE_ALL_FIELDS": "N",
+        "FORCE_IDENTIFIERS_TO_LOWERCASE": "N",
+        "SUPPORTS_BOOLEAN_DATA_TYPE": "Y",
+        "PRESERVE_RESERVED_WORD_CASE": "Y",
+        "FORCE_IDENTIFIERS_TO_UPPERCASE": "N",
+        "PORT_NUMBER": "5432"
+      },
+      "username": "postgres"
+    }
+  },
+  "name": "PostgreSQL Source"
+}
