@@ -16,9 +16,9 @@ CREATE SCHEMA IF NOT EXISTS "dimensional";
 --
 CREATE TABLE "dimensional"."dim_countries" (
     "id" SERIAL,
-    "name" CHARACTER VARYING NOT NULL,
-    "iso_2" CHARACTER VARYING NOT NULL,
-    "iso_3" CHARACTER VARYING NOT NULL,
+    "name" CHARACTER VARYING NOT NULL UNIQUE,
+    "iso_2" CHARACTER VARYING NOT NULL UNIQUE,
+    "iso_3" CHARACTER VARYING NOT NULL UNIQUE,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_country PRIMARY KEY ("id")
