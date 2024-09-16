@@ -180,7 +180,7 @@ CREATE TABLE "dimensional"."dim_customers" (
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_customer PRIMARY KEY ("id"),
-    CONSTRAINT fk_address FOREIGN KEY ("address") REFERENCES "dimensional"."dim_addresses"("id"),
+    CONSTRAINT fk_address FOREIGN KEY ("address") REFERENCES "dimensional"."dim_addresses"("id")
 );
 
 --
@@ -200,7 +200,7 @@ CREATE TABLE "dimensional"."dim_products" (
     "scale" INTEGER NOT NULL,
     CONSTRAINT pk_dim_product PRIMARY KEY ("id"),
     CONSTRAINT fk_vendor FOREIGN KEY ("vendor") REFERENCES "dimensional"."dim_vendors"("id"),
-    CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id"),
+    CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id")
 );
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE "dimensional"."fact_calls" (
     CONSTRAINT fk_date FOREIGN KEY ("date") REFERENCES "dimensional"."dim_dates"("id"),
     CONSTRAINT fk_customer FOREIGN KEY ("customer") REFERENCES "dimensional"."dim_customers"("id"),
     CONSTRAINT fk_product FOREIGN KEY ("product") REFERENCES "dimensional"."dim_products"("id"),
-    CONSTRAINT fk_employee FOREIGN KEY ("employee") REFERENCES "dimensional"."dim_employees"("id"),
+    CONSTRAINT fk_employee FOREIGN KEY ("employee") REFERENCES "dimensional"."dim_employees"("id")
 );
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE "dimensional"."fact_orders" (
     CONSTRAINT fk_status FOREIGN KEY ("status") REFERENCES "dimensional"."dim_statuses"("id"),
     CONSTRAINT fk_customer FOREIGN KEY ("customer") REFERENCES "dimensional"."dim_customers"("id"),
     CONSTRAINT fk_product FOREIGN KEY ("product") REFERENCES "dimensional"."dim_products"("id"),
-    CONSTRAINT fk_employee FOREIGN KEY ("employee") REFERENCES "dimensional"."dim_employees"("id"),
+    CONSTRAINT fk_employee FOREIGN KEY ("employee") REFERENCES "dimensional"."dim_employees"("id")
 );
 
 --
@@ -257,5 +257,5 @@ CREATE TABLE "dimensional"."fact_payments" (
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_fact_payment PRIMARY KEY ("code"),
     CONSTRAINT fk_customer FOREIGN KEY ("customer") REFERENCES "dimensional"."dim_customers"("id"),
-    CONSTRAINT fk_date FOREIGN KEY ("date") REFERENCES "dimensional"."dim_dates"("id"),
+    CONSTRAINT fk_date FOREIGN KEY ("date") REFERENCES "dimensional"."dim_dates"("id")
 );
