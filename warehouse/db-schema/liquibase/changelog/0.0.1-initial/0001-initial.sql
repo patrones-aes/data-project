@@ -142,7 +142,7 @@ CREATE TABLE "dimensional"."dim_offices" (
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_office PRIMARY KEY ("id"),
-    CONSTRAINT fk_address FOREIGN KEY ("address") REFERENCES "dimensional"."dim_addresses"("id"),
+    CONSTRAINT fk_address FOREIGN KEY ("address") REFERENCES "dimensional"."dim_addresses"("id")
 );
 
 --
