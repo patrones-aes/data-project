@@ -211,6 +211,8 @@ CREATE TABLE "dimensional"."dim_products" (
     "vendor" INTEGER NOT NULL,
     "scale" INTEGER NOT NULL,
     "category" INTEGER NOT NULL,
+    "created_at" TIMESTAMP DEFAULT NOW(),
+    "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_product PRIMARY KEY ("id"),
     CONSTRAINT fk_vendor FOREIGN KEY ("vendor") REFERENCES "dimensional"."dim_vendors"("id"),
     CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id"),
