@@ -114,11 +114,25 @@ CREATE TABLE "dimensional"."dim_vendors" (
 -- Name: dim_scales; Type: TABLE; Schema: dimensional; Owner: postgres
 --
 CREATE TABLE "dimensional"."dim_scales" (
-    id SERIAL,
-    value CHARACTER VARYING NOT NULL,
+    "id" SERIAL,
+    "value" CHARACTER VARYING NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_scale PRIMARY KEY ("id")
+);
+
+--
+-- Name: dim_categories; Type: TABLE; Schema: dimensional; Owner: postgres
+--
+CREATE TABLE "dimensional"."dim_categories" (
+    "id" SERIAL,
+    "name" CHARACTER VARYING NOT NULL UNIQUE,
+    "description" TEXT NOT NULL,
+    "html_description" TEXT,
+    "image" BYTEA,
+    "created_at" TIMESTAMP DEFAULT NOW(),
+    "updated_at" TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT pk_dim_category PRIMARY KEY ("id")
 );
 
 --
@@ -190,17 +204,17 @@ CREATE TABLE "dimensional"."dim_products" (
     "id" SERIAL,
     "code" CHARACTER VARYING NOT NULL,
     "name" CHARACTER VARYING NOT NULL,
-    "text_description" TEXT,
-    "html_description" TEXT,
-    "image" BYTEA,
+    "description" TEXT,
     "stock_quantity" INTEGER NOT NULL,
     "price" DECIMAL NOT NULL,
     "suggested_price" DECIMAL NOT NULL,
     "vendor" INTEGER NOT NULL,
     "scale" INTEGER NOT NULL,
+    "category" INTEGER NOT NULL,
     CONSTRAINT pk_dim_product PRIMARY KEY ("id"),
     CONSTRAINT fk_vendor FOREIGN KEY ("vendor") REFERENCES "dimensional"."dim_vendors"("id"),
-    CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id")
+    CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id"),
+    CONSTRAINT fk_category FOREIGN KEY ("category") REFERENCES "dimensional"."dim_categories"("id")
 );
 
 --
