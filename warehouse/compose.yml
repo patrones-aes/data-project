@@ -1,0 +1,27 @@
+volumes:
+  warehouse-db-data:
+
+services:
+  warehouse-db:
+    container_name: warehouse-db
+    image: postgres:16.4-alpine3.20
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${WAREHOUSE_DB_DATABASRE}
+      POSTGRES_USER: ${WAREHOUSE_DB_USER}
+      POSTGRES_PASSWORD: ${WAREHOUSE_DB_PASSWORD}
+    ports:
+      - ${WAREHOUSE_DB_PORT}:5432
+    volumes:
+      - warehouse-db-data:/var/lib/postgresql/data
+  # warehouse-db-schema:
+  #   container_name: warehouse-db-schema
+  #   image: archi/warehouse-db-schema
+  #   build:
+  #     context: db-schema
+  #   environment:
+  #     LIQUIBASE_COMMAND_URL: jdbc:postgresql://${WAREHOUSE_DB_HOST}:5432/${WAREHOUSE_DB_DATABASRE}
+  #     LIQUIBASE_COMMAND_USERNAME: ${WAREHOUSE_DB_USER}
+  #     LIQUIBASE_COMMAND_PASSWORD: ${WAREHOUSE_DB_PASSWORD}
+  #   depends_on:
+  #     - warehouse-db
