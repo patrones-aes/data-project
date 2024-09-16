@@ -14,14 +14,14 @@ services:
       - ${WAREHOUSE_DB_PORT}:5432
     volumes:
       - warehouse-db-data:/var/lib/postgresql/data
-  # warehouse-db-schema:
-  #   container_name: warehouse-db-schema
-  #   image: archi/warehouse-db-schema
-  #   build:
-  #     context: db-schema
-  #   environment:
-  #     LIQUIBASE_COMMAND_URL: jdbc:postgresql://${WAREHOUSE_DB_HOST}:5432/${WAREHOUSE_DB_DATABASE}
-  #     LIQUIBASE_COMMAND_USERNAME: ${WAREHOUSE_DB_USER}
-  #     LIQUIBASE_COMMAND_PASSWORD: ${WAREHOUSE_DB_PASSWORD}
-  #   depends_on:
-  #     - warehouse-db
+  warehouse-db-schema:
+    container_name: warehouse-db-schema
+    image: archi/warehouse-db-schema
+    build:
+      context: db-schema
+    environment:
+      LIQUIBASE_COMMAND_URL: jdbc:postgresql://${WAREHOUSE_DB_HOST}:5432/${WAREHOUSE_DB_DATABASE}
+      LIQUIBASE_COMMAND_USERNAME: ${WAREHOUSE_DB_USER}
+      LIQUIBASE_COMMAND_PASSWORD: ${WAREHOUSE_DB_PASSWORD}
+    depends_on:
+      - warehouse-db
