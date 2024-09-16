@@ -60,7 +60,7 @@ CREATE TABLE "dimensional"."dim_addresses" (
     "city" INTEGER NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
-    CONSTRAINT pk_dim_address PRIMARY KEY ("id")
+    CONSTRAINT pk_dim_address PRIMARY KEY ("id"),
     CONSTRAINT fk_city FOREIGN KEY ("city") REFERENCES "dimensional"."dim_cities"("id")
 );
 
