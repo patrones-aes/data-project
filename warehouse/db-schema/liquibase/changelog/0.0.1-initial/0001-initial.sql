@@ -46,7 +46,7 @@ CREATE TABLE "dimensional"."dim_cities" (
     "state" INTEGER NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
-    CONSTRAINT pk_dim_address PRIMARY KEY ("id"),
+    CONSTRAINT pk_dim_city PRIMARY KEY ("id"),
     CONSTRAINT fk_state FOREIGN KEY ("state") REFERENCES "dimensional"."dim_states"("id")
 );
 
@@ -198,7 +198,7 @@ CREATE TABLE "dimensional"."dim_products" (
     "suggested_price" DECIMAL NOT NULL,
     "vendor" INTEGER NOT NULL,
     "scale" INTEGER NOT NULL,
-    CONSTRAINT pk_product PRIMARY KEY ("id"),
+    CONSTRAINT pk_dim_product PRIMARY KEY ("id"),
     CONSTRAINT fk_vendor FOREIGN KEY ("vendor") REFERENCES "dimensional"."dim_vendors"("id"),
     CONSTRAINT fk_scale FOREIGN KEY ("scale") REFERENCES "dimensional"."dim_scales"("id"),
 );
