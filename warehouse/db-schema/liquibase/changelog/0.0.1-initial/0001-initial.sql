@@ -104,7 +104,7 @@ CREATE TABLE "dimensional"."dim_statuses" (
 --
 CREATE TABLE "dimensional"."dim_vendors" (
     "id" SERIAL,
-    "name" CHARACTER VARYING,
+    "name" CHARACTER VARYING UNIQUE,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_vendor PRIMARY KEY ("id")
@@ -115,7 +115,7 @@ CREATE TABLE "dimensional"."dim_vendors" (
 --
 CREATE TABLE "dimensional"."dim_scales" (
     "id" SERIAL,
-    "value" CHARACTER VARYING NOT NULL,
+    "value" CHARACTER VARYING NOT NULL UNIQUE,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_dim_scale PRIMARY KEY ("id")
@@ -151,7 +151,7 @@ CREATE TABLE "dimensional"."dim_job_titles" (
 --
 CREATE TABLE "dimensional"."dim_offices" (
     "id" SERIAL,
-    "code" INTEGER UNIQUE NOT NULL,
+    "code" INTEGER NOT NULL UNIQUE,
     "address" INTEGER NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
@@ -164,7 +164,7 @@ CREATE TABLE "dimensional"."dim_offices" (
 --
 CREATE TABLE "dimensional"."dim_employees" (
     "id" SERIAL,
-    "code" INTEGER UNIQUE NOT NULL,
+    "code" INTEGER NOT NULL UNIQUE,
     "first_name" CHARACTER VARYING,
     "last_name" CHARACTER VARYING,
     "email" CHARACTER VARYING,
@@ -185,7 +185,7 @@ CREATE TABLE "dimensional"."dim_employees" (
 --
 CREATE TABLE "dimensional"."dim_customers" (
     "id" SERIAL,
-    "code" INTEGER NOT NULL,
+    "code" INTEGER NOT NULL UNIQUE,
     "first_name" CHARACTER VARYING NOT NULL,
     "last_name" CHARACTER VARYING NOT NULL,
     "phone" CHARACTER VARYING NOT NULL,
@@ -202,7 +202,7 @@ CREATE TABLE "dimensional"."dim_customers" (
 --
 CREATE TABLE "dimensional"."dim_products" (
     "id" SERIAL,
-    "code" CHARACTER VARYING NOT NULL,
+    "code" CHARACTER VARYING NOT NULL UNIQUE,
     "name" CHARACTER VARYING NOT NULL,
     "description" TEXT,
     "stock_quantity" INTEGER NOT NULL,
@@ -224,6 +224,7 @@ CREATE TABLE "dimensional"."dim_products" (
 --
 CREATE TABLE "dimensional"."fact_calls" (
     "code" INTEGER NOT NULL UNIQUE,
+    "count_call" INTEGER NOT NULL,
     "date" INTEGER NOT NULL,
     "customer" INTEGER NOT NULL,
     "product" INTEGER NOT NULL,
@@ -242,6 +243,8 @@ CREATE TABLE "dimensional"."fact_calls" (
 --
 CREATE TABLE "dimensional"."fact_orders" (
     "code" INTEGER NOT NULL UNIQUE,
+    "count_order" INTEGER NOT NULL,
+    "value_order" DECIMAL NOT NULL,
     "date" INTEGER NOT NULL,
     "shipped_date" INTEGER NOT NULL,
     "requested_date" INTEGER NOT NULL,
@@ -267,12 +270,14 @@ CREATE TABLE "dimensional"."fact_orders" (
 -- Name: fact_payments; Type: TABLE; Schema: dimensional; Owner: postgres
 --
 CREATE TABLE "dimensional"."fact_payments" (
-    "code" INTEGER NOT NULL UNIQUE,
+    "code" CHARACTER VARYING NOT NULL UNIQUE,
+    "count_payment" INTEGER NOT NULL,
+    "value_payment" DECIMAL NOT NULL,
     "customer" INTEGER NOT NULL,
     "date" INTEGER NOT NULL,
     "created_at" TIMESTAMP DEFAULT NOW(),
     "updated_at" TIMESTAMP DEFAULT NOW(),
     CONSTRAINT pk_fact_payment PRIMARY KEY ("code"),
-    CONSTRAINT fk_customer FOREIGN KEY ("customer") REFERENCES "dimensional"."dim_customers"("id"),
+    CONSTRAINT fk_customer FOREIGN KEY ("customer") REFERENCES "dimensional"."dim_customers"("code"),
     CONSTRAINT fk_date FOREIGN KEY ("date") REFERENCES "dimensional"."dim_dates"("id")
 );
